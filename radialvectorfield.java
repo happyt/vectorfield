@@ -5,19 +5,7 @@ Based on https://www.openprocessing.org/sketch/146879
 Adding circles, colour, perlin noise
 
 
- Copyright by Diana Lange 2014
- Don't use without any permission. Creative Commons: Attribution Non-Commercial.
-     
- mail: kontakt@diana-lange.de
- web: diana-lange.de
- facebook: https://www.facebook.com/DianaLangeDesign
- flickr: http://www.flickr.com/photos/dianalange/collections/
- tumblr: http://dianalange.tumblr.com/
- twitter: http://twitter.com/DianaOnTheRoad
- vimeo: https://vimeo.com/dianalange/videos
-    
- -----------------------------------*/
-
+ 
 int padding;
 
 ArrayList <Mover> m;
@@ -27,6 +15,8 @@ int yRes = 28;
 float posX;
 float posY;
 int changer = 0;
+
+  float hue = 200;
 
 boolean bDisplayVectorField = false, displayParticle = true;
 
@@ -38,6 +28,8 @@ void setup ()
   noSmooth();
   //smooth();
   frameRate (30);
+  
+  colorMode(HSB, 360);
 
   padding = -2;
   posX = width/2+1;
@@ -96,6 +88,7 @@ class Mover
     location = new PVector(random(width), random(height));
     velo = new PVector(random(-1, 1), random(-1, 1));
     velo.normalize();
+
     colour = getNextColour();
     speed = random (1, 3);
   }
@@ -134,6 +127,7 @@ class Mover
     {
       location.x = random (width);
       location.y = random (height);
+      colour = getNextColour();
     }
   }
 
@@ -153,11 +147,10 @@ class Mover
 }
 
 color getNextColour() {
-  colorMode(HSB);
-   changer++;
-   float noiseVal = noise(changer);
-   
-   color c = color(noiseVal*10, 255, 255);
+    color c; 
+    hue += noise(.000011);
+    if (hue>360) hue=0;
+    c = color(hue, 360, 360);  
    return  c;
 }
 
@@ -192,7 +185,7 @@ void displayVectorField()
   float mm = map (posX, 0, width, -1.5, 1.5);
   if (mm == 0) mm = 0.0001;
   float maxDis = mm*dist (0, 0, width/2, height/2);
-  float fAngle;
+float fAngle;
 
   for (int i = 0; i < yRes; i++)
   {
