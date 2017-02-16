@@ -1,3 +1,6 @@
+// perlin test for hue variation
+// would like a blend of hues
+
 function setup() {
   createCanvas(windowWidth, windowHeight); 
   background(100);  
