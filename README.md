@@ -1,9 +1,9 @@
 ## Java/p5js vector fields
 
 
-Based on https://www.openprocessing.org/sketch/146879 wghich used white pixels
+Based on https://www.openprocessing.org/sketch/146879 which used white pixels
 
-mail: kontakt@diana-lange.de
+ mail: kontakt@diana-lange.de
  web: diana-lange.de
  facebook: https://www.facebook.com/DianaLangeDesign
  flickr: http://www.flickr.com/photos/dianalange/collections/
