@@ -1,11 +1,20 @@
 /*----------------------------------
+   
+ Based on https://www.openprocessing.org/sketch/146879 which used white pixels
 
-Based on https://www.openprocessing.org/sketch/146879
+ Copyright by Diana Lange 2014
+ Don't use without any permission. Creative Commons: Attribution Non-Commercial.
+     
+ mail: kontakt@diana-lange.de
+ web: diana-lange.de
+ facebook: https://www.facebook.com/DianaLangeDesign
+ flickr: http://www.flickr.com/photos/dianalange/collections/
+ tumblr: http://dianalange.tumblr.com/
+ twitter: http://twitter.com/DianaOnTheRoad
+ vimeo: https://vimeo.com/dianalange/videos
+    
+ -----------------------------------*/
 
-Adding circles, colour, perlin noise
-
-
- 
 int padding;
 
 ArrayList <Mover> m;
@@ -16,7 +25,9 @@ float posX;
 float posY;
 int changer = 0;
 
-  float hue = 200;
+ float hueStart = 0;
+ float hueLimit = 60;
+ float hue = hueStart + (hueLimit-hueStart)/2;
 
 boolean bDisplayVectorField = false, displayParticle = true;
 
@@ -38,7 +49,7 @@ void setup ()
 
   background (#111111);
 
-  for (int i = 0; i < 500; i++)
+  for (int i = 0; i < 1000; i++)
   {
     m.add (new Mover());
   }
@@ -52,7 +63,7 @@ void draw ()
  // fastblur (1);
 
   noStroke();
-  fill (7, 9);
+  fill (7, 19);
   rect (0, 0, width, height);
 
   posX = lerp (posX, (mousePressed ? mouseX : noise (frameCount /500.0) * width /*noise (20+frameCount / 100.0)*1.5*/), 0.05);
@@ -142,14 +153,16 @@ class Mover
     //strokeWeight (0.5);
     //fill(#b1c999, 255);
      stroke(colour);
-     ellipse( location.x, location.y, 4, 4);  // was point
+    ellipse( location.x, location.y, 2, 2);  
+     
+ //   point (location.x, location.y);    // original
   }
 }
 
 color getNextColour() {
     color c; 
-    hue += noise(.000011);
-    if (hue>360) hue=0;
+    hue += noise(.00001);
+    if (hue>hueLimit) hue=hueStart;
     c = color(hue, 360, 360);  
    return  c;
 }
